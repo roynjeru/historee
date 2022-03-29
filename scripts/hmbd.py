@@ -7,15 +7,18 @@ import os
 configFile = open(os.path.dirname(__file__)+ '/scriptsConfig.json')
 configData = json.load(configFile)
 
-userkeyVal = configData['userKey']
+userKey = "&userkey=" + configData['userKey']
+piedmontParkPoint = "&lat=33.7884801&Lon=-84.368617"
 
 # step 2: get data from api
 getUrl = "https://www.hmdb.org/m.asp?m=64905"
-nearbyUrl = "https://www.hmdb.org/db/getnearby.asp?lat=33.7501965&Lon=-84.3723763&range=5&userkey=" + userkeyVal
-piedmontParkUrl = "https://www.hmdb.org/db/getnearby.asp?lat=33.7884801&Lon=-84.368617&range=5&userkey=" + userkeyVal
+nearbyUrl = "https://www.hmdb.org/db/getnearby.asp?range=5"
+
 getHeaders = {}
 
-getResponse = requests.get(nearbyUrl, headers=getHeaders)
+requestUrl = nearbyUrl + piedmontParkPoint + userKey
+
+getResponse = requests.get(requestUrl, headers=getHeaders)
 
 xmlDoc = getResponse.content
 
